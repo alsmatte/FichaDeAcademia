@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Incluir exercício</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div>
+            <form th:action="@{/detalhesTreino/{treinoId}/criaExercicio(treinoId=${treino.id})}" th:object="${exercicio}" method="post">
+           <div>
+               <!--<input type="hidden" name="id" th:value="${id}"/> -->
+               <p>Exercício: <input type="text" th:field="*{nome}"/></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+               <p>Peso: <input type="number" th:field="*{peso}" /></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></span>
+               <p>Séries: <input type="number" th:field="*{series}" /></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('series')}" th:errors="*{series}"></span>
+               <p>Repetições: <input type="number" th:field="*{repeticoes}" /></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('repeticoes')}" th:errors="*{repeticoes}"></span>
+               <p>Observações: <input type="text" th:field="*{obs}" /></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('obs')}" th:errors="*{obs}"></span>
+           </div> 
+           <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+            <br>
+            <a th:href="@{/detalhesTreino/{treinoId}(treinoId=${treino.id})}" class="link-opacity-50-hover">Voltar</a>
+        </div>
+    </body>
+</html>

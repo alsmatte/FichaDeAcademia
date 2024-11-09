@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Atualizar treino</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+        #dias-da-semana {
+            display: none;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>Atualizar treino</h1>
+        <form th:action="@{/atualizaTreino/{treinoId}(treinoId=${treino.id})}" th:object="${treino}" method="post">
+           <div>
+               <p>ID: <input type="hidden" th:field="*{id}" /></p>
+               <p>Nome do treino: <input type="text" th:field="*{nomeTreino}" placeholder="Digite aqui" class="form-control mt-4 col-4" /></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('nomeTreino')}" th:errors="*{nomeTreino}"></span>
+               <p>Tipo de treino: <input type="text" th:field="*{tipo}" placeholder="(ex: perna)" class="form-control mt-4 col-4"/></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></span>
+               <p>Vezes na semana: <input type="number" th:field="*{frequencia}" class="form-control mt-4 col-4"/></p>
+               <span class="text-danger" th:if="${#fields.hasErrors('frequencia')}" th:errors="*{frequencia}"></span>
+               <div>
+                    <label for="informDays">Informar dias da semana?</label>
+                    <input type="radio" id="sim" name="informaDias" value="sim" th:checked="*{informaDias == 'sim'}"> Sim
+                    <input type="radio" id="nao" name="informaDias" value="nao" th:checked="*{informaDias == 'nao'}"> Não
+                </div>
+               <div id="dias-da-semana">
+                <label>Escolha os dias da semana:</label>
+                <div>
+                    <input type="checkbox" name="dias" value="segunda" id="segunda"> Segunda-feira
+                </div>
+                <div>
+                    <input type="checkbox" name="dias" value="terca" id="terca"> Terça-feira
+                </div>
+                <div>
+                    <input type="checkbox" name="dias" value="quarta" id="quarta"> Quarta-feira
+                </div>
+                <div>
+                    <input type="checkbox" name="dias" value="quinta" id="quinta"> Quinta-feira
+                </div>
+                <div>
+                    <input type="checkbox" name="dias" value="sexta" id="sexta"> Sexta-feira
+                </div>
+                <div>
+                    <input type="checkbox" name="dias" value="sabado" id="sabado"> Sábado
+                </div>
+                <div>
+                    <input type="checkbox" name="dias" value="domingo" id="domingo"> Domingo
+                </div>
+            </div>
+           </div> 
+            <br>
+           <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+        <br>
+        <a th:href="@{/listaTreinos}" class="link-opacity-50-hover">Treinos cadastrados</a>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Dias da semana escondidos
+                if ($('input[name="informaDias"]:checked').val() === "no") {
+                   $('#dias-da-semana').hide();
+                }
+
+                // Aparecem quando opção "sim" é marcada
+                $('input[name="informaDias"]').on('change', function() {
+                    if ($('#sim').prop('checked')) {
+                      $('#dias-da-semana').show();
+                 } else {
+                        $('#dias-da-semana').hide();
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Detalhes do treino</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body id="detalhesDoTreino">
+        <h1 id="nomeDoTreino" th:text="${treino.nomeTreino}"></h1>
+        <div>
+            <p>ID: <span id="id" th:text="${treino.id}"></span></p>
+            <p>Nome do treino: <span id="nomeTreino" th:text="${treino.nomeTreino}"></span></p>
+            <p>Tipo: <span id="tipo" th:text="${treino.tipo}"></span></p>
+            <p>Vezes na semana: <span id="frequencia" th:text="${treino.frequencia}"></span></p>
+            <p>Dias na semana: </p>
+            <p id="diasSemana" th:text="${treino.dias}"></p>
+        </div>
+        <br>
+        <div>
+            <h2>Exercícios</h2>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Exercício/máquina</th>
+                    <th scope="col">Peso</th>
+                    <th scope="col">Séries</th>
+                    <th scope="col">Repetições</th>
+                    <th scope="col">Observações</th>
+                    <th scope="col">Atualizar</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="exercicio : ${exercicios}" scope="row">
+                    <td th:text="${exercicio.id}"></td>
+                    <td th:text="${exercicio.nome}"></td>
+                    <td th:text="${exercicio.peso}"></td>
+                    <td th:text="${exercicio.series}"></td>
+                    <td th:text="${exercicio.repeticoes}"></td>
+                    <td th:text="${exercicio.obs}"></td>
+                    <td><a th:href="@{/detalhesTreino/{treinoId}/atualizaExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Atualizar</a></td>
+                    <td><a th:href="@{/detalhesTreino/{treinoId}/excluiExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Excluir</a></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/detalhes/{treinoId}/criaExercicio (treinoId=${treino.id})}" class="link-opacity-50-hover">Incluir novo exercício</a>
+           <a th:href="@{/listaTreinos}" class="link-opacity-50-hover">Treinos cadastrados</a>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+         <script src="scriptFilmes.js"></script>
+    </body>
+</html>
