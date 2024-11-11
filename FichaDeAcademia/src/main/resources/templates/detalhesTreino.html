@@ -41,7 +41,7 @@
                     <td th:text="${exercicio.series}"></td>
                     <td th:text="${exercicio.repeticoes}"></td>
                     <td th:text="${exercicio.obs}"></td>
-                    <td><a th:href="@{/detalhesTreino/{treinoId}/atualizaExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Atualizar</a></td>
+                    <td><a href="atualizaExercicio.html" class="btn btn-primary">Atualizar</a></td>
                     <td><a th:href="@{/detalhesTreino/{treinoId}/excluiExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Excluir</a></td>
                 </tr>
             </tbody>
@@ -49,8 +49,8 @@
         </div>
         <br>
         <div>
-            <a th:href="@{/detalhes/{treinoId}/criaExercicio (treinoId=${treino.id})}" class="link-opacity-50-hover">Incluir novo exercício</a>
-           <a th:href="@{/listaTreinos}" class="link-opacity-50-hover">Treinos cadastrados</a>
+            <a href="criaExercicio.html" class="link-opacity-50-hover">Incluir novo exercício</a>
+           <a href="listaTreinos.html" class="link-opacity-50-hover">Treinos cadastrados</a>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
          <script src="scriptFilmes.js"></script>

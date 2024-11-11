@@ -6,27 +6,108 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+        .erro {
+            color: red;
+            font-size: 0.9em;
+        }
+        </style>
     </head>
     <body>
         <div>
-            <form th:action="@{/detalhesTreino/{treinoId}/atualizaExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" th:object="${exercicio}" method="post">
+            <h1>Atualizar exercício</h1>
+            <form id="myform" action="criaExercicio.html" th:object="${exercicio}" method="post">
            <div>
                <p><input type="hidden" th:value="*{id}"/></p>
-               <p>Exercício: <input type="text" th:field="*{nome}"/></p>
-               <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-               <p>Peso: <input type="number" th:field="*{peso}" /></p>
-               <span class="text-danger" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></span>
-               <p>Séries: <input type="number" th:field="*{series}" /></p>
-               <span class="text-danger" th:if="${#fields.hasErrors('series')}" th:errors="*{series}"></span>
-               <p>Repetições: <input type="number" th:field="*{repeticoes}" /></p>
-               <span class="text-danger" th:if="${#fields.hasErrors('repeticoes')}" th:errors="*{repeticoes}"></span>
-               <p>Observações: <input type="text" th:field="*{obs}" /></p>
-               <span class="text-danger" th:if="${#fields.hasErrors('obs')}" th:errors="*{obs}"></span>
+               <p>Exercício: <input type="text" id="nomeExercicio" onblur="validarNomeExercicio()" th:field="*{nome}" placeholder="Nome da máquina ou nome do exercício" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="nomeErro"></div>
+               <p>Peso: <input type="number" id="peso" onblur="validarPeso()" th:field="*{peso}" placeholder="(Em kg. ex: 4)" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="pesoErro"></div>
+               <p>Séries: <input type="number" id="series" onblur="validarSeries()" th:field="*{series}" placeholder="Informe o número de séries" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="seriesErro"></div>
+               <p>Repetições: <input type="number" id="repeticoes" onblur="validarRepeticoes()" th:field="*{repeticoes}" placeholder="Informe o número de repetições em uma série" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="repeticoesErro"></div>
+               <p>Observações: <input type="text" id="obs" th:field="*{obs}" placeholder="" class="form-control mt-4 col-4"/></p>
            </div> 
            <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
             <br>
-            <a th:href="@{/detalhesTreino/{treinoId}(treinoId=${treino.id})}" class="link-opacity-50-hover">Voltar</a>
+            <a href="detalhesTreino.html" class="link-opacity-50-hover">Voltar</a>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function validarNomeExercicio(){
+                let nomeExercicio = $('#nomeExercicio').val();
+                nomeTamanho = nomeExercicio.trim().length;
+                if (nomeTamanho < 1){
+                    $('#nomeErro').text('Informe o nome do exercício/máquina');
+                    return false;
+                }
+                else {
+                    $('#nomeErro').text('');
+                    return true;
+                }
+            }
+            
+            function validarPeso(){
+                let peso = $('#peso').val();
+                 if (!/^\d+(\.\d+)?$/.test(peso)){
+                    $('#pesoErro').text('Informe apenas números');
+                    return false;
+                }
+                else {
+                    $('#pesoErro').text('');
+                    return true;
+                }
+            }
+            
+            function validarSeries() {
+                let series = $('#series').val();
+                series = parseFloat(series);
+                if (series <= 0) {
+                    $('#seriesErro').text('O número de séries deve ser maior do que zero');
+                    return false;
+                }
+                else if (!Number.isInteger(series)){
+                    $('#seriesErro').text('O número deve ser inteiro');
+                    return false;
+                } else {
+                    $('#seriesErro').text('');
+                    return true;
+                }
+            }
+            
+            function validarRepeticoes() {
+                let repeticoes = $('#repeticoes').val();
+                repeticoes = parseFloat(repeticoes);
+                if (repeticoes <= 0) {
+                    $('#repeticoesErro').text('O número de repetições deve ser maior do que zero');
+                    return false;
+                }
+                else if (!Number.isInteger(repeticoes)){
+                    $('#repeticoesErro').text('O número deve ser inteiro');
+                    return false;
+                } else {
+                    $('#repeticoesErro').text('');
+                    return true;
+                }
+            }
+            
+            $(document).ready(function() {
+            $('#myForm').submit(function(e) {
+                var isValid = true;
+
+                if (!validarNomeExercicio() || !validarPeso() || !validarSeries() || !validarRepeticoes()) {
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    console.log(isValid);
+                    e.preventDefault();
+                    alert("O formulário não foi preenchido corretamente");
+                }
+            });
+        });
+        </script>
     </body>
 </html>
