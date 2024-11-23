@@ -19,7 +19,7 @@ public class ExercicioEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String nome;
+    private String nomeExercicio;
 
     //@NotNull(message = "Informe o peso")
     private double peso;

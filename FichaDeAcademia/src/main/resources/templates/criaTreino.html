@@ -18,7 +18,7 @@
     </head>
     <body>
         <h1>Adicionar novo treino</h1>
-        <form id="myform" action="criaTreino.html" th:object="${treino}" method="post">
+        <form id="myform" th:action="@{/salvarTreino}" th:object="${treino}" method="post">
            <div>
                <!--  <p>ID: <input type="number" th:field="${treino.id}" /></p> -->
                <p>Nome do treino: <input type="text" id="nomeTreino" onblur="validarNomeTreino()" th:field="*{nomeTreino}" placeholder="Digite aqui" class="form-control mt-4 col-4" /></p>
@@ -29,33 +29,34 @@
                <div class="erro" id="frequenciaErro" ></div>
                <div>
                     <label for="informaDias">Informar dias da semana?</label>
-                    <input type="radio" id="sim" name="informaDias" value="sim" th:checked="*{informaDias == 'sim'}"> Sim
-                    <input type="radio" id="nao" name="informaDias" value="nao" th:checked="*{informaDias == 'nao'}"> Não
+                    <input type="radio" id="sim" name="informaDias" value="true" th:checked="${informaDias == true}"> Sim
+                    <input type="radio" id="nao" name="informaDias" value="false" th:checked="${informaDias == false}"> Não
+
                     <div class="erro" id="informaDiasErro"></div>
                 </div>
                
                <div id="dias-da-semana">
                 <label>Escolha os dias da semana:</label>
                 <div>
-                    <input type="checkbox" name="dias" value="segunda" id="segunda"> Segunda-feira
+                    <input type="checkbox" name="segunda" id="segunda" class="dias" th:checked="*{seg}"> Segunda-feira
                 </div>
                 <div>
-                    <input type="checkbox" name="dias" value="terca" id="terca"> Terça-feira
+                    <input type="checkbox" name="terca" id="terca" class="dias" th:checked="*{ter}"> Terça-feira
                 </div>
                 <div>
-                    <input type="checkbox" name="dias" value="quarta" id="quarta"> Quarta-feira
+                    <input type="checkbox" name="quarta" id="quarta" class="dias" th:checked="*{qua}"> Quarta-feira
                 </div>
                 <div>
-                    <input type="checkbox" name="dias" value="quinta" id="quinta"> Quinta-feira
+                    <input type="checkbox" name="quinta" id="quinta" class="dias" th:checked="*{qui}"> Quinta-feira
                 </div>
                 <div>
-                    <input type="checkbox" name="dias" value="sexta" id="sexta"> Sexta-feira
+                    <input type="checkbox" name="sexta" id="sexta" class="dias" th:checked="*{sex}"> Sexta-feira
                 </div>
                 <div>
-                    <input type="checkbox" name="dias" value="sabado" id="sabado"> Sábado
+                    <input type="checkbox" name="sabado" id="sabado" class="dias" th:checked="*{sab}"> Sábado
                 </div>
                 <div>
-                    <input type="checkbox" name="dias" value="domingo" id="domingo"> Domingo
+                    <input type="checkbox" name="domingo" id="domingo" class="dias" th:checked="*{dom}"> Domingo
                 </div>
                 <div class="erro" id="diasErro"></div> 
             </div>
@@ -64,7 +65,7 @@
            <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
         <br>
-        <a href="listaTreinos.html" class="link-opacity-50-hover">Treinos cadastrados</a>
+        <a th:href="@{/treinos}" class="link-opacity-50-hover">Voltar</a>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             function validarFrequencia() {
@@ -110,9 +111,9 @@
             }
             
             $(document).ready(function() {
-            $('input[name="informaDias"][value="nao"]').prop('checked', true);
+            $('input[name="informaDias"][value="false"]').prop('checked', true);
             // Dias da semana escondidos
-            if ($('input[name="informaDias"]:checked').val() === "no") {
+            if ($('input[name="informaDias"]:checked').val() === "false") {
                 $('#dias-da-semana').hide();
             }
 
@@ -126,9 +127,9 @@
                 }
             });
             
-            $('input[name="dias"]').on('change', function() {
+            $('input[class="dias"]').on('change', function() {
                 if ($('#sim').prop('checked')) {
-                    if ($('input[name="dias"]:checked').length === 0) {
+                    if ($('input[class="dias"]:checked').length === 0) {
                         $('#diasErro').text('Selecione ao menos um dia da semana');
                     } else{
                         $('#diasErro').text('');

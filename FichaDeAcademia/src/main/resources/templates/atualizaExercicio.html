@@ -16,10 +16,10 @@
     <body>
         <div>
             <h1>Atualizar exercício</h1>
-            <form id="myform" action="criaExercicio.html" th:object="${exercicio}" method="post">
+            <form id="myform" th:action="@{/detalhesTreino/{treinoId}/atualizarExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" th:object="${exercicio}" method="post">
            <div>
                <p><input type="hidden" th:value="*{id}"/></p>
-               <p>Exercício: <input type="text" id="nomeExercicio" onblur="validarNomeExercicio()" th:field="*{nome}" placeholder="Nome da máquina ou nome do exercício" class="form-control mt-4 col-4"/></p>
+               <p>Exercício: <input type="text" id="nomeExercicio" onblur="validarNomeExercicio()" th:field="*{nomeExercicio}" placeholder="Nome da máquina ou nome do exercício" class="form-control mt-4 col-4"/></p>
                <div class="erro" id="nomeErro"></div>
                <p>Peso: <input type="number" id="peso" onblur="validarPeso()" th:field="*{peso}" placeholder="(Em kg. ex: 4)" class="form-control mt-4 col-4"/></p>
                <div class="erro" id="pesoErro"></div>
@@ -32,7 +32,7 @@
            <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
             <br>
-            <a href="detalhesTreino.html" class="link-opacity-50-hover">Voltar</a>
+            <a th:href="@{/detalhesTreino/{treinoId}(treinoId=${treino.id})}" class="link-opacity-50-hover">Voltar</a>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>

@@ -14,8 +14,17 @@
             <p>Nome do treino: <span id="nomeTreino" th:text="${treino.nomeTreino}"></span></p>
             <p>Tipo: <span id="tipo" th:text="${treino.tipo}"></span></p>
             <p>Vezes na semana: <span id="frequencia" th:text="${treino.frequencia}"></span></p>
-            <p>Dias na semana: </p>
-            <p id="diasSemana" th:text="${treino.dias}"></p>
+            <div th:if="${treino.diasSemana}">
+                <p>Dias na semana: </p>
+                <p th:if="${treino.seg}">Segunda</p>
+                <p th:if="${treino.ter}">Terça</p>
+                <p th:if="${treino.qua}">Quarta</p>
+                <p th:if="${treino.qui}">Quinta</p>
+                <p th:if="${treino.sex}">Sexta</p>
+                <p th:if="${treino.sab}">Sábado</p>
+                <p th:if="${treino.dom}">Domingo</p>
+            </div>
+
         </div>
         <br>
         <div>
@@ -36,21 +45,21 @@
             <tbody>
                 <tr th:each="exercicio : ${exercicios}" scope="row">
                     <td th:text="${exercicio.id}"></td>
-                    <td th:text="${exercicio.nome}"></td>
+                    <td th:text="${exercicio.nomeExercicio}"></td>
                     <td th:text="${exercicio.peso}"></td>
                     <td th:text="${exercicio.series}"></td>
                     <td th:text="${exercicio.repeticoes}"></td>
                     <td th:text="${exercicio.obs}"></td>
-                    <td><a href="atualizaExercicio.html" class="btn btn-primary">Atualizar</a></td>
-                    <td><a th:href="@{/detalhesTreino/{treinoId}/excluiExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Excluir</a></td>
+                    <td><a th:href="@{/detalhesTreino/{treinoId}/atualizarExercicioForm/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Atualizar</a></td>
+                    <td><a th:href="@{/detalhesTreino/{treinoId}/deletarExercicio/{exercicioId}(treinoId=${treino.id}, exercicioId=${exercicio.id})}" class="btn btn-primary">Excluir</a></td>
                 </tr>
             </tbody>
         </table>
         </div>
         <br>
         <div>
-            <a href="criaExercicio.html" class="link-opacity-50-hover">Incluir novo exercício</a>
-           <a href="listaTreinos.html" class="link-opacity-50-hover">Treinos cadastrados</a>
+            <a th:href="@{/detalhesTreino/{treinoId}/criarExercicioForm (treinoId=${treino.id})}" class="link-opacity-50-hover">Incluir novo exercício</a>
+           <a th:href="@{/treinos}" class="link-opacity-50-hover">Treinos cadastrados</a>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
          <script src="scriptFilmes.js"></script>

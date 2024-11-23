@@ -14,7 +14,7 @@ public class ExercicioService {
     @Autowired
     ExercicioRepository exercicioRepository;
 
-    public ExercicioEntity criarAnalise(ExercicioEntity exercicio) {
+    public ExercicioEntity criarExercicio(ExercicioEntity exercicio) {
 
         exercicio.setId(null);
         exercicioRepository.save(exercicio);
@@ -25,7 +25,7 @@ public class ExercicioService {
         
         ExercicioEntity exercicio = getExercicioId(exercicioId);
         
-        exercicio.setNome(exercicioRequest.getNome());
+        exercicio.setNomeExercicio(exercicioRequest.getNomeExercicio());
         exercicio.setPeso(exercicioRequest.getPeso());
         exercicio.setSeries(exercicioRequest.getSeries());
         exercicio.setRepeticoes(exercicioRequest.getRepeticoes());
@@ -42,7 +42,7 @@ public class ExercicioService {
         
         ExercicioEntity exercicio = getExercicioId(exercicioId);
         
-        exercicio.setNome(exercicioRequest.getNome());
+        exercicio.setNomeExercicio(exercicioRequest.getNomeExercicio());
         exercicio.setPeso(exercicioRequest.getPeso());
         exercicio.setSeries(exercicioRequest.getSeries());
         exercicio.setRepeticoes(exercicioRequest.getRepeticoes());

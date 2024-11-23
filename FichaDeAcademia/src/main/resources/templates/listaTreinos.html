@@ -27,13 +27,13 @@
                     <td th:text="${treino.nomeTreino}"></td>
                     <td th:text="${treino.tipo}"></td> 
                     <td th:text="${treino.frequencia}"></td>
-                    <td><a href="detalhesTreino.html" class="link-opacity-50-hover">Mais</a></td>
-                    <td><a href="atualizaTreino.html" class="btn btn-primary">Atualizar</a></td>
-                    <td><a th:href="@{/excluiTreino/{treinoId}(treinoId=${treino.id})}" class="btn btn-primary">Excluir</a></td>
+                    <td><a th:href="@{/detalhesTreino/{treinoId}(treinoId=${treino.id})}" class="link-opacity-50-hover">Mais</a></td>
+                    <td><a th:href="@{/atualizarTreinoForm/{treinoId}(treinoId=${treino.id})}" class="btn btn-primary">Atualizar</a></td>
+                    <td><a th:href="@{/deletarTreino/{treinoId}(treinoId=${treino.id})}" class="btn btn-primary">Excluir</a></td>
                 </tr>
             </tbody>
         </table>
         <br>
-        <a href="criaTreino.html" class="link-opacity-50-hover">Adicionar novo treino</a>
+        <a th:href="@{/criarTreinoForm}" class="link-opacity-50-hover">Adicionar novo treino</a>
     </body>
 </html>

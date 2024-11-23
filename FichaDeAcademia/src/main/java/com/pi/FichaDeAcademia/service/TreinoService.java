@@ -26,10 +26,17 @@ public class TreinoService {
         
         TreinoEntity treino = getTreinoId(treinoId);
         
-        treino.setNome(treinoRequest.getNome());
+        treino.setNomeTreino(treinoRequest.getNomeTreino());
         treino.setTipo(treinoRequest.getTipo());
         treino.setFrequencia(treinoRequest.getFrequencia());
-        treino.setDiasSemana(treino.getDiasSemana());
+        treino.setDiasSemana(treinoRequest.isDiasSemana());
+        treino.setSeg(treinoRequest.isSeg());
+        treino.setTer(treinoRequest.isTer());
+        treino.setQua(treinoRequest.isQua());
+        treino.setQui(treinoRequest.isQui());
+        treino.setSex(treinoRequest.isSex());
+        treino.setSab(treinoRequest.isSab());
+        treino.setDom(treinoRequest.isDom());
 
         treinoRepository.save(treino);
 

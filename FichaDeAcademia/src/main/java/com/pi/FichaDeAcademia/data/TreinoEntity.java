@@ -24,7 +24,7 @@ public class TreinoEntity {
     
     //@NotNull(message="Informe o nome do treino")
     //@NotBlank(message="Informe o nome do treino")
-    private String nome;
+    private String nomeTreino;
     
     //@NotNull(message="Informe o tipo de treino (ex: braço, perna, etc)")
     //@NotBlank(message="Informe o tipo de treino (ex: braço, perna, etc)")
@@ -33,7 +33,9 @@ public class TreinoEntity {
     //@NotBlank(message="Informe quantos dias na semana")
     private int frequencia;
     
-    private String diasSemana;
+    private boolean diasSemana;
+    
+    private boolean seg, ter, qua, qui, sex, sab, dom;
     
     @OneToMany(mappedBy = "treino", cascade = CascadeType.ALL)
     private Set<ExercicioEntity> exercicios;
