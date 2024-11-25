@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Treinos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <h1>Treinos cadastrados: </h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Treino</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Vezes na semana</th>
+                    <th scope="col">Dias na semana</th>
+                    <th scope="col">Detalhes</th>
+                    <th scope="col">Atualizar</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="treino : ${treinos}" scope="row">
+                    <td th:text="${treino.id}"></td> 
+                    <td th:text="${treino.nomeTreino}"></td>
+                    <td th:text="${treino.tipo}"></td> 
+                    <td th:text="${treino.frequencia}"></td>
+                    <td>
+                    <span th:if="${treino.seg}" class="seg">Seg</span>
+                    <span th:if="${treino.ter}" class="ter">Ter</span>
+                    <span th:if="${treino.qua}" class="qua">Qua</span>
+                    <span th:if="${treino.qui}" class="qui">Qui</span>
+                    <span th:if="${treino.sex}" class="sex">Sex</span>
+                    <span th:if="${treino.sab}" class="sab">Sab</span>
+                    <span th:if="${treino.dom}" class="dom">Dom</span>
+                    </td>
+                    <td><a th:href="@{/detalhesTreino/{treinoId}(treinoId=${treino.id})}" class="link-opacity-50-hover">Mais</a></td>
+                    <td><a th:href="@{/atualizarTreinoForm/{treinoId}(treinoId=${treino.id})}" class="btn btn-primary">Atualizar</a></td>
+                    <td><a th:href="@{/deletarTreino/{treinoId}(treinoId=${treino.id})}" class="btn btn-primary">Excluir</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <a th:href="@{/criarTreinoForm}" class="link-opacity-50-hover">Adicionar novo treino</a>
+    </body>
+</html>

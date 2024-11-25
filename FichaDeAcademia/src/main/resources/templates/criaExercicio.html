@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Incluir exercício</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div>
+            <h1>Adicionar novo exercício</h1>
+            <br>
+            <form id="myform2" th:action="@{/detalhesTreino/{treinoId}/salvarExercicio(treinoId=${treino.id})}" th:object="${exercicio}" method="post">
+           <div>
+               <!--<input type="hidden" name="id" th:value="${id}"/> -->
+               <p>Exercício: <input type="text" id="nomeExercicio" onblur="validarNomeExercicio()" th:field="*{nomeExercicio}" required placeholder="Nome da máquina ou nome do exercício" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="nomeErro"></div>
+               <p>Peso: <input type="number" step="0.1" id="peso" onblur="validarPeso()" th:field="*{peso}" required placeholder="(Em kg. ex: 4)" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="pesoErro"></div>
+               <p>Séries: <input type="number" min="1" id="series" onblur="validarSeries()" th:field="*{series}" required placeholder="Informe o número de séries" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="seriesErro"></div>
+               <p>Repetições: <input type="number" min="1" id="repeticoes" onblur="validarRepeticoes()" th:field="*{repeticoes}" required placeholder="Informe o número de repetições em uma série" class="form-control mt-4 col-4"/></p>
+               <div class="erro" id="repeticoesErro"></div>
+               <p>Observações: <input type="text" id="obs" th:field="*{obs}" placeholder="" class="form-control mt-4 col-4"/></p>
+           </div> 
+           <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+            <br>
+            <a th:href="@{/detalhesTreino/{treinoId}(treinoId=${treino.id})}" class="link-opacity-50-hover">Voltar</a>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script th:src="@{/js/script.js}" defer></script>
+    </body>
+</html>
