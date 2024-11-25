@@ -6,26 +6,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <style>
-        #dias-da-semana {
-            display: none;
-        }
-        .erro {
-            color: red;
-            font-size: 0.9em;
-        }
-        </style>
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
         <h1>Adicionar novo treino</h1>
         <form id="myform" th:action="@{/salvarTreino}" th:object="${treino}" method="post">
            <div>
                <!--  <p>ID: <input type="number" th:field="${treino.id}" /></p> -->
-               <p>Nome do treino: <input type="text" id="nomeTreino" onblur="validarNomeTreino()" th:field="*{nomeTreino}" placeholder="Digite aqui" class="form-control mt-4 col-4" /></p>
+               <p>Nome do treino: <input type="text" id="nomeTreino" onblur="validarNomeTreino()" th:field="*{nomeTreino}" required placeholder="Digite aqui" class="form-control mt-4 col-4" /></p>
                <div class="erro" id="nomeErro"></div>
-               <p>Tipo de treino: <input type="text" id="tipo" onblur="validarTipo()" th:field="*{tipo}" placeholder="(ex: perna)" class="form-control mt-4 col-4"/></p>
+               <p>Tipo de treino: <input type="text" id="tipo" onblur="validarTipo()" th:field="*{tipo}" required placeholder="(ex: perna)" class="form-control mt-4 col-4"/></p>
                <div class="erro" id="tipoErro" ></div>
-               <p>Vezes na semana: <input type="number" id="frequencia" onblur="validarFrequencia()" th:field="*{frequencia}" class="form-control mt-4 col-4"/></p>
+               <p>Vezes na semana: <input type="number" min="1" id="frequencia" onblur="validarFrequencia()" required th:field="*{frequencia}" class="form-control mt-4 col-4"/></p>
                <div class="erro" id="frequenciaErro" ></div>
                <div>
                     <label for="informaDias">Informar dias da semana?</label>
@@ -67,103 +59,6 @@
         <br>
         <a th:href="@{/treinos}" class="link-opacity-50-hover">Voltar</a>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            function validarFrequencia() {
-                let frequencia = $('#frequencia').val();
-                frequencia = parseFloat(frequencia);
-                if (frequencia <= 0) {
-                    $('#frequenciaErro').text('O número de vezes na semana deve ser maior do que zero');
-                    return false;
-                }
-                else if (!Number.isInteger(frequencia)){
-                    $('#frequenciaErro').text('O número deve ser inteiro');
-                    return false;
-                } else {
-                    $('#frequenciaErro').text('');
-                    return true;
-                }
-            }
-            
-            function validarNomeTreino(){
-                let nomeTreino = $('#nomeTreino').val();
-                nomeTamanho = nomeTreino.trim().length;
-                if (nomeTamanho < 1){
-                    $('#nomeErro').text('Informe um nome para o treino');
-                    return false;
-                }
-                else {
-                    $('#nomeErro').text('');
-                    return true;
-                }
-            }
-            
-            function validarTipo(){
-                let tipo = $('#tipo').val();
-                tipoTamanho = tipo.trim().length;
-                if (tipoTamanho < 1){
-                    $('#tipoErro').text('Informe o tipo de treino (ex: braço)');
-                    return false;
-                }
-                else {
-                    $('#tipoErro').text('');
-                    return true;
-                }
-            }
-            
-            $(document).ready(function() {
-            $('input[name="informaDias"][value="false"]').prop('checked', true);
-            // Dias da semana escondidos
-            if ($('input[name="informaDias"]:checked').val() === "false") {
-                $('#dias-da-semana').hide();
-            }
-
-            // Aparecem quando opção "sim" é marcada
-            $('input[name="informaDias"]').on('change', function() {
-                if ($('#sim').prop('checked')) {
-                    $('#dias-da-semana').show();
-                    $('#diasErro').text('Selecione ao menos um dia da semana');
-                } else {
-                    $('#dias-da-semana').hide();
-                }
-            });
-            
-            $('input[class="dias"]').on('change', function() {
-                if ($('#sim').prop('checked')) {
-                    if ($('input[class="dias"]:checked').length === 0) {
-                        $('#diasErro').text('Selecione ao menos um dia da semana');
-                    } else{
-                        $('#diasErro').text('');
-                    }
-                }
-            });
-            
-            
-
-            $('#myForm').submit(function(e) {
-                var isValid = true;
-                
-                if (!$('input[name="informaDias"]:checked').val()) {
-                    isValid = false;
-                }
-
-                if ($('#sim').prop('checked')) {
-                    if ($('input[name="dias"]:checked').length === 0) {
-                        isValid = false;
-                    }
-                }
-                if (!validarNomeTreino() || !validarTipo() || !validarFrequencia()){
-                    isValid = false;
-                }
-
-                if (!isValid) {
-                    e.preventDefault();
-                    alert("O formulário não foi preenchido corretamente");
-                }
-            });
-            
-        });
-
-    
-        </script>
+        <script th:src="@{/js/script.js}" defer></script>
     </body>
 </html>

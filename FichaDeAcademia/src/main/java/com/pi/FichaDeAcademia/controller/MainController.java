@@ -63,9 +63,10 @@ public class MainController {
         if (result.hasErrors()) {
             return "criaTreino";
         }
-
-        if (treino.getId() == null) {
-            treino.setDiasSemana(informaDias != null ? informaDias : false);
+        
+        treino.setDiasSemana(informaDias != null ? informaDias : false);
+        
+        if (treino.isDiasSemana()){
             treino.setSeg(segunda != null ? segunda : false);
             treino.setTer(terca != null ? terca : false);
             treino.setQua(quarta != null ? quarta : false);
@@ -73,6 +74,18 @@ public class MainController {
             treino.setSex(sexta != null ? sexta : false);
             treino.setSab(sabado != null ? sabado : false);
             treino.setDom(domingo != null ? domingo : false);
+            }
+        else {
+            treino.setSeg(false);
+            treino.setTer(false);
+            treino.setQua(false);
+            treino.setQui(false);
+            treino.setSex(false);
+            treino.setSab(false);
+            treino.setDom(false);
+        }
+
+        if (treino.getId() == null) {
             treinoService.criarTreino(treino);
         } else {
             treinoService.atualizarTreino(treino.getId(), treino);
